@@ -5,8 +5,9 @@
       <map>
         <entry key="app/src/main/res/layout-xxhdpi/activity_mainhd.xml" value="0.22780797101449277" />
         <entry key="app/src/main/res/layout-xxhdpi/activity_question.xml" value="0.18" />
+        <entry key="app/src/main/res/layout-xxhdpi/activity_question_main.xml" value="0.20380434782608695" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_question_main.xml" value="0.21" />
+        <entry key="app/src/main/res/layout/activity_question_main.xml" value="0.67" />
         <entry key="app/src/main/res/layout/activity_score.xml" value="0.14" />
       </map>
     </option>

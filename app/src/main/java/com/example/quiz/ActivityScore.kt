@@ -35,6 +35,7 @@ class ActivityScore : AppCompatActivity() {
         tryAgainButton.setOnClickListener {
             val tryAgain = Intent(this, QuestionActivityMain::class.java)
             startActivity(tryAgain)
+
         }
     }
 }

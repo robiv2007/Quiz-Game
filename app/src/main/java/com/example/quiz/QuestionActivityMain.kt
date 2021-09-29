@@ -3,12 +3,15 @@ package com.example.quiz
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
+import android.media.AudioManager
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import java.io.IOException
 
 class QuestionActivityMain : AppCompatActivity() {
 
@@ -24,6 +27,8 @@ class QuestionActivityMain : AppCompatActivity() {
     var score = 0
 
 
+
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +39,8 @@ class QuestionActivityMain : AppCompatActivity() {
         optionTwo = findViewById(R.id.option2)
         optionThree = findViewById(R.id.option3)
         imageView = findViewById(R.id.quizImageView)
+
+
 
         setQuestion()
 
@@ -144,6 +151,9 @@ class QuestionActivityMain : AppCompatActivity() {
     fun checkAnswer(value : String) : Boolean {
         return value == myQuestionsList[currentPosition].correctOption
     }
+
+
+
 
 
 
