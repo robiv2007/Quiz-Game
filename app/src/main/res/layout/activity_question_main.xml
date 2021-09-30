@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#664BF8F8"
+    android:background="#66F2F4F4"
     tools:context=".QuestionActivityMain">
 
     <TextView

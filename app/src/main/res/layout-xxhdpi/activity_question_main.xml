@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="#664BF8F8"
+    android:background="#66F5F8F8"
     tools:context=".QuestionActivityMain">
 
     <TextView

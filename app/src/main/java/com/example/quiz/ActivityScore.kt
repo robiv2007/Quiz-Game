@@ -9,7 +9,7 @@ import android.widget.Button
 
 
 class ActivityScore : AppCompatActivity() {
-    lateinit var showScore : TextView
+    lateinit var showScore: TextView
     lateinit var message: TextView
 
 
@@ -23,19 +23,28 @@ class ActivityScore : AppCompatActivity() {
         message = findViewById(R.id.messageTextView)
         showScore.text = ("You got $score out of 10")
 
-        if(score >= 6){
+        if (score >= 6) {
             message.text = "Good job"
 
         }
-        if(score <= 5){
+        if (score <= 5) {
             message.text = "Keep trying"
+        }
+
+        if (mediaPlayer != null) {
+            mediaPlayer!!.stop()
+            mediaPlayer!!.release()
+            mediaPlayer = null
         }
 
         val tryAgainButton = findViewById<Button>(R.id.tryAgainButton)
         tryAgainButton.setOnClickListener {
-            val tryAgain = Intent(this, QuestionActivityMain::class.java)
-            startActivity(tryAgain)
+            val tryAgain = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(tryAgain)
+
 
         }
+
     }
 }

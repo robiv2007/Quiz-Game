@@ -38,7 +38,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
         android:backgroundTint="#EC9B34"
-        android:text="Start the jurney"
+        android:text="Start the journey"
         android:textColor="@color/purple_500"
         android:textSize="16sp"
         android:textStyle="bold"

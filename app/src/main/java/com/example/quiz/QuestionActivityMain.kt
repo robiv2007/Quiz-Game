@@ -129,7 +129,9 @@ class QuestionActivityMain : AppCompatActivity() {
         val progressBar = findViewById<ProgressBar>(R.id.progressBarTV)
         val textViewProgress = findViewById<TextView>(R.id.TextViewProgress)
         progressBar.progress = currentPosition
+        if(currentPosition + 1 <= 10)
         textViewProgress.text = ("${currentPosition + 1} "  + "/" + progressBar.max)
+
 
         optionOne.isClickable = true
         optionTwo.isClickable = true

@@ -9,10 +9,10 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import java.io.IOException
-
+var mediaPlayer : MediaPlayer? = null
 class MainActivity : AppCompatActivity() {
 
-    var mediaPlayer : MediaPlayer? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         startButton.setOnClickListener {
             val intent = Intent(this, QuestionActivityMain::class.java)
             startActivity(intent)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
             finish()
         }
@@ -44,8 +45,4 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-
-
-
 }
