@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.room.Room
 import java.io.IOException
 
 class QuestionActivityMain : AppCompatActivity() {
@@ -28,19 +29,28 @@ class QuestionActivityMain : AppCompatActivity() {
 
 
 
-
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question_main)
+
+        val db = AppDatabase.getInstance(this)
+        db?.questionDao()?.insertQuestion(myQuestionsList)
+        db?.questionDao()?.getTheQuestions()
+
+
+       /*Thread{
+           var list = myQuestionsList
+           db.questionDao().insertQuestion(list)
+           db.questionDao().getTheQuestions()
+
+           }.start()*/
 
         questionTextView = findViewById(R.id.questionView)
         optionOne = findViewById(R.id.option1)
         optionTwo = findViewById(R.id.option2)
         optionThree = findViewById(R.id.option3)
         imageView = findViewById(R.id.quizImageView)
-
-
 
         setQuestion()
 
@@ -153,11 +163,6 @@ class QuestionActivityMain : AppCompatActivity() {
     fun checkAnswer(value : String) : Boolean {
         return value == myQuestionsList[currentPosition].correctOption
     }
-
-
-
-
-
 
 }
 

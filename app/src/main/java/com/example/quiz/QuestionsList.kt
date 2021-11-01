@@ -6,6 +6,7 @@ object QuestionsList {
 
 
         val question1 = Question(
+            0,
             "Let's start the journey from the busiest airport in Europe." +
                     "Which one do you think it is? ",
             R.drawable.airport,
@@ -18,6 +19,7 @@ object QuestionsList {
 
 
         val question2 = Question(
+            0,
             "Next stop will be across the Atlantic ocean in the USA." +
                     " How many states have USA? ",
             R.drawable.map,
@@ -29,6 +31,7 @@ object QuestionsList {
         questionsList.add(question2)
 
         val question3 = Question(
+            0,
             "In what city is located the famous Alcatraz prison?",
             R.drawable.alcatraz,
             "Los Angeles",
@@ -39,6 +42,7 @@ object QuestionsList {
         questionsList.add(question3)
 
         val question4 = Question(
+            0,
             "Let's move a bit more south on the American continent" +
                     " What oceans is the Panama canal connecting?",
             R.drawable.panama,
@@ -50,6 +54,7 @@ object QuestionsList {
         questionsList.add(question4)
 
         val question5 = Question(
+            0,
             "Welcome to beautiful Brazil." + " What is the capital city of Brazil?",
             R.drawable.brazil,
             "Brasilia",
@@ -60,6 +65,7 @@ object QuestionsList {
         questionsList.add(question5)
 
         val question6 = Question(
+            0,
             "In the middle of the Pacific we find Hawaii." +
                     " What sport was invented in Hawaii?",
             R.drawable.honolulu,
@@ -71,6 +77,7 @@ object QuestionsList {
         questionsList.add(question6)
 
         val question7 = Question(
+            0,
             "From one paradise to another." + " To which country belongs this flag?",
             R.drawable.fiji,
             "Vanuatu",
@@ -81,6 +88,7 @@ object QuestionsList {
         questionsList.add(question7)
 
         val question8 = Question(
+            0,
             "Next stop is on the only continent and country at the same time." + " Which one is it?",
             R.drawable.maxresdefault,
             "Antarctica",
@@ -91,6 +99,7 @@ object QuestionsList {
         questionsList.add(question8)
 
         val question9 = Question(
+            0,
             "In what country was filmed The Lord of the Rings trilogy?",
             R.drawable.new_zeeland,
             "Island",
@@ -100,7 +109,8 @@ object QuestionsList {
 
         questionsList.add(question9)
 
-        val question10 = Question(
+        val question10 = Question(0,
+
             "Last stop is in one of the greatest countries, Singapore." +
                     " Fun fact, what is forbidden in Singapore?",
             R.drawable.singapore,
@@ -110,6 +120,7 @@ object QuestionsList {
             "chewing gum")
 
         questionsList.add(question10)
+
 
         return questionsList
     }
