@@ -33,7 +33,6 @@ class QuestionActivityMain : AppCompatActivity(),CoroutineScope {
     var value: String = ""
     //var myQuestionsList = QuestionsList.getQuestions()
     var myQuestionsList = mutableListOf<Question>()
-    //var myQuestionsList : QuestionsList? = null
     var status = false
     var score = 0
     lateinit var db: AppDatabase
@@ -46,15 +45,11 @@ class QuestionActivityMain : AppCompatActivity(),CoroutineScope {
        job = Job()
         db = AppDatabase.getInstance(this)
 
-
-
-
-        Thread {
-            //var list = myQuestionsList
-       //db.questionDao.insertQuestion(list)
-            //db.questionDao.getTheQuestions()
-
-        }.start()
+       //to add more questions to the database
+        /*Thread {
+            var list = myQuestionsList
+            db.questionDao.insertQuestion(list)
+        }.start()*/
 
         questionTextView = findViewById(R.id.questionView)
         optionOne = findViewById(R.id.option1)
@@ -63,8 +58,6 @@ class QuestionActivityMain : AppCompatActivity(),CoroutineScope {
         imageView = findViewById(R.id.quizImageView)
 
         loadAllQuestions()
-
-
 
         optionOne.setOnClickListener {
             value = optionOne.text.toString()
