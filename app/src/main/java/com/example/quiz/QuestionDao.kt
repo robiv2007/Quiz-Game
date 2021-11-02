@@ -8,7 +8,7 @@ import androidx.room.Query
 @Dao
 interface QuestionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertQuestion(list: ArrayList<Question>)
+    fun insertQuestion(list: MutableList<Question>)
 
     @Query("SELECT * FROM question_table")
     fun getTheQuestions() : List<Question>

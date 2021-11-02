@@ -1,8 +1,8 @@
 package com.example.quiz
 
 object QuestionsList {
-    fun getQuestions(): ArrayList<Question>{
-        val questionsList = ArrayList<Question>()
+    fun getQuestions(): MutableList<Question>{
+        val questionsList = mutableListOf<Question>()
 
 
         val question1 = Question(

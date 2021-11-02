@@ -7,14 +7,22 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.room.Room
+import com.example.quiz.QuestionsList.getQuestions
+import kotlinx.coroutines.*
 import java.io.IOException
+import kotlin.coroutines.CoroutineContext
 
-class QuestionActivityMain : AppCompatActivity() {
+class QuestionActivityMain : AppCompatActivity(),CoroutineScope {
+
+    private lateinit var job : Job
+    override val coroutineContext: CoroutineContext
+    get() = Dispatchers.Main + job
 
     lateinit var questionTextView: TextView
     lateinit var optionOne: Button
@@ -22,29 +30,31 @@ class QuestionActivityMain : AppCompatActivity() {
     lateinit var optionThree: Button
     lateinit var imageView: ImageView
     private var currentPosition: Int = 0
-    var value : String = ""
-    var myQuestionsList = QuestionsList.getQuestions()
+    var value: String = ""
+    //var myQuestionsList = QuestionsList.getQuestions()
+    var myQuestionsList = mutableListOf<Question>()
+    //var myQuestionsList : QuestionsList? = null
     var status = false
     var score = 0
+    lateinit var db: AppDatabase
 
 
-
-    @SuppressLint("SetTextI18n")
+   @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question_main)
-
-        val db = AppDatabase.getInstance(this)
-        db?.questionDao()?.insertQuestion(myQuestionsList)
-        db?.questionDao()?.getTheQuestions()
+       job = Job()
+        db = AppDatabase.getInstance(this)
 
 
-       /*Thread{
-           var list = myQuestionsList
-           db.questionDao().insertQuestion(list)
-           db.questionDao().getTheQuestions()
 
-           }.start()*/
+
+        Thread {
+            //var list = myQuestionsList
+       //db.questionDao.insertQuestion(list)
+            //db.questionDao.getTheQuestions()
+
+        }.start()
 
         questionTextView = findViewById(R.id.questionView)
         optionOne = findViewById(R.id.option1)
@@ -52,57 +62,59 @@ class QuestionActivityMain : AppCompatActivity() {
         optionThree = findViewById(R.id.option3)
         imageView = findViewById(R.id.quizImageView)
 
-        setQuestion()
+        loadAllQuestions()
+
+
 
         optionOne.setOnClickListener {
             value = optionOne.text.toString()
-            val correctAnswer  = checkAnswer(value)
+            val correctAnswer = checkAnswer(value)
 
-              if (status){
+            if (status) {
                 optionOne.setBackgroundColor(Color.parseColor("#CD2224B5"))
                 currentPosition++
                 status = false
                 setQuestion()
 
-            } else{
-                  if(correctAnswer){
-                      optionOne.setBackgroundColor(Color.GREEN)
-                      optionOne.text = "Great!! Next question"
-                      score++
-                      status = true
-                      optionTwo.isClickable = false
-                      optionThree.isClickable = false
-                  } else{
-                      optionOne.setBackgroundColor(Color.RED)
-                      optionOne.text = "Ouch!! Next question"
-                      status = true
-                      optionTwo.isClickable = false
-                      optionThree.isClickable = false
-                  }
-             }
+            } else {
+                if (correctAnswer) {
+                    optionOne.setBackgroundColor(Color.GREEN)
+                    optionOne.text = "Great!! Next question"
+                    score++
+                    status = true
+                    optionTwo.isClickable = false
+                    optionThree.isClickable = false
+                } else {
+                    optionOne.setBackgroundColor(Color.RED)
+                    optionOne.text = "Ouch!! Next question"
+                    status = true
+                    optionTwo.isClickable = false
+                    optionThree.isClickable = false
+                }
+            }
         }
         optionTwo.setOnClickListener() {
             value = optionTwo.text.toString()
             var correctAnswer = checkAnswer(value)
 
-            if (status){
+            if (status) {
                 optionTwo.setBackgroundColor(Color.parseColor("#CD2224B5"))
                 currentPosition++
                 status = false
                 setQuestion()
-            }else{
-                if (correctAnswer){
+            } else {
+                if (correctAnswer) {
                     optionTwo.setBackgroundColor(Color.GREEN)
                     optionTwo.text = "Great!! Next question "
                     score++
                     status = true
                     optionOne.isClickable = false
                     optionThree.isClickable = false
-                }else{
+                } else {
                     optionTwo.setBackgroundColor(Color.RED)
                     optionTwo.text = "Ouch!! Next question"
-                    status =  true
-                    optionOne.isClickable =false
+                    status = true
+                    optionOne.isClickable = false
                     optionThree.isClickable = false
                 }
             }
@@ -111,36 +123,39 @@ class QuestionActivityMain : AppCompatActivity() {
             value = optionThree.text.toString()
             var correctAnswer = checkAnswer(value)
 
-            if (status){
+            if (status) {
                 optionThree.setBackgroundColor(Color.parseColor("#CD2224B5"))
                 currentPosition++
                 status = false
                 setQuestion()
-            }else{
+            } else {
 
-                if (correctAnswer){
+                if (correctAnswer) {
                     optionThree.setBackgroundColor(Color.GREEN)
                     optionThree.text = "Great!! Next question"
                     score++
-                    status =  true
+                    status = true
                     optionTwo.isClickable = false
                     optionOne.isClickable = false
-                }else{
+                } else {
                     optionThree.setBackgroundColor(Color.RED)
                     optionThree.text = "Ouch!! Next question"
-                    status =  true
+                    status = true
                     optionTwo.isClickable = false
                     optionOne.isClickable = false
                 }
             }
         }
     }
+
     private fun setQuestion() {
+
+
         val progressBar = findViewById<ProgressBar>(R.id.progressBarTV)
         val textViewProgress = findViewById<TextView>(R.id.TextViewProgress)
         progressBar.progress = currentPosition
-        if(currentPosition + 1 <= 10)
-        textViewProgress.text = ("${currentPosition + 1} "  + "/" + progressBar.max)
+        if (currentPosition + 1 <= 10)
+            textViewProgress.text = ("${currentPosition + 1} " + "/" + progressBar.max)
 
 
         optionOne.isClickable = true
@@ -160,11 +175,29 @@ class QuestionActivityMain : AppCompatActivity() {
             startActivity(intent)
         }
     }
-    fun checkAnswer(value : String) : Boolean {
+
+    fun checkAnswer(value: String): Boolean {
         return value == myQuestionsList[currentPosition].correctOption
     }
 
+    fun loadAllQuestions(){
+        val questions = async(Dispatchers.IO) {
+            db.questionDao.getTheQuestions()
+
+        }
+        launch{
+            val list = questions.await().toMutableList()
+            myQuestionsList = (list)
+
+            setQuestion()
+            for (question in list)
+                Log.d("!!!", "loadAllWords: $myQuestionsList ")
+        }
+
+    }
+
 }
+
 
 
 
